@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ShapeDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,23 +21,22 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+import static com.example.a2grahj29.gyrogame.R.drawable.ball;
+import static com.example.a2grahj29.gyrogame.R.drawable.enemy;
+
 public class MainActivity extends Activity implements SensorEventListener {
 
     CustomDrawableView mCustomDrawableView = null;
-    //ShapeDrawable mDrawable = new ShapeDrawable();
     public float xPosition, xAcceleration,xVelocity = 0.0f;
     public float yPosition, yAcceleration,yVelocity = 0.0f;
     public float xmax,ymax;
     private Bitmap bBitmap;
     private Bitmap eBitmap;
-    private Paint rectPaint;
-    private ShapeDrawable backGround;
     private SensorManager sensorManager = null;
     public float frameTime = 0.666f;
     int counter = 0;
-    int updateScore;
+    int updateScore = 0;
     Paint p;
-
 
     /** Called when the activity is first created. */
     @Override
@@ -77,8 +77,6 @@ public class MainActivity extends Activity implements SensorEventListener {
     }
 
     private void updateBall() {
-
-
         //Calculate new speed
         xVelocity += (xAcceleration * frameTime);
         yVelocity += (yAcceleration * frameTime);
@@ -103,6 +101,26 @@ public class MainActivity extends Activity implements SensorEventListener {
             yPosition = 0;
         }
     }
+
+    /*
+    private void scoreUpdate(){
+        if(yPosition == 200){
+            if(xPosition == 900){
+                updateScore ++;
+            }
+        }
+        if(yPosition == 300){
+            if(xPosition == 100){
+                updateScore++;
+            }
+        }
+        if(yPosition == 500){
+            if(xPosition == 500){
+                updateScore++;
+            }
+        }
+    }
+    */
 
     // I've chosen to not implement this method
     public void onAccuracyChanged(Sensor arg0, int arg1)
@@ -136,13 +154,13 @@ public class MainActivity extends Activity implements SensorEventListener {
             bBitmap = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
 
             Bitmap enemy = BitmapFactory.decodeResource(getResources(), R.drawable.enemy);
-            final int dsWidth = 100;
-            final int dsHeight = 100;
+            final int dsWidth = 50;
+            final int dsHeight = 50;
             eBitmap = Bitmap.createScaledBitmap(enemy, dsWidth, dsHeight, true);
 
             p = new Paint();
             p.setColor(Color.BLUE);
-            p.setTextSize(24);
+            p.setTextSize(35);
 
         }
 
@@ -160,13 +178,37 @@ public class MainActivity extends Activity implements SensorEventListener {
             final Bitmap bitmap3 = eBitmap;
             canvas.drawBitmap(eBitmap, 300, 100, null);
 
+            final Bitmap bitmap4 = eBitmap;
+            canvas.drawBitmap(eBitmap, 200, 400, null);
+
             counter++;
             canvas.drawText(String.valueOf(counter),0,1150,p);
 
-            canvas.drawText(String.valueOf(xAcceleration),600,20,p);
-            canvas.drawText(String.valueOf(yAcceleration),600,40,p);
+            canvas.drawText(String.valueOf(xPosition),600,30,p);
+            canvas.drawText(String.valueOf(yPosition),600,60,p);
 
-            canvas.drawText(String.valueOf(updateScore),50,20,p);
+            if(xPosition < 470 == xPosition > 530){
+                if(yPosition < 470 == yPosition > 530)
+                    updateScore+= 10;
+            }
+
+            if(xPosition < 170 == xPosition > 230){
+                if(yPosition < 850 == yPosition > 950)
+                    updateScore+= 10;
+            }
+
+            if(xPosition < 270 == xPosition > 330){
+                if(yPosition < 70 == yPosition > 130)
+                    updateScore+= 10;
+            }
+
+            if(xPosition < 170 == xPosition > 230){
+                if(yPosition < 370 == yPosition > 430)
+                    updateScore+= 10;
+            }
+
+            canvas.drawText("Score :",0,30,p);
+            canvas.drawText(String.valueOf(updateScore),120,30,p);
 
             invalidate();
         }
@@ -178,7 +220,5 @@ public class MainActivity extends Activity implements SensorEventListener {
         super.onConfigurationChanged(newConfig);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
-
-
 
 }
