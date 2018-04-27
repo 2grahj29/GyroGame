@@ -29,7 +29,12 @@ public class MainActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager = null;
     public float frameTime = 0.666f;
     int counter = 0;
-    int updateScore = 0;
+    int updateTime = 1000;
+    int updateVisit1 = 0;
+    int updateVisit2 = 0;
+    int updateVisit3 = 0;
+    int updateVisit4 = 0;
+    int updateFinished = 0;
     Paint p;
 
     /** Called when the activity is first created. */
@@ -156,38 +161,60 @@ public class MainActivity extends Activity implements SensorEventListener {
             final Bitmap bitmap4 = eBitmap;
             canvas.drawBitmap(eBitmap, 200, 400, null);
 
+            updateTime--;
+
             //counter++;
             //canvas.drawText(String.valueOf(counter),0,1150,p);
 
             //canvas.drawText(String.valueOf(xPosition),600,30,p);
             //canvas.drawText(String.valueOf(yPosition),600,60,p);
 
-            if(xPosition < 470 == xPosition > 530){
-                if(yPosition < 470 == yPosition > 530)
-                    updateScore+= 10;
+
+            if(xPosition < 480 == xPosition > 520){
+                if(yPosition < 480 == yPosition > 520) {
+                    updateVisit1 += 1;
+                }
             }
 
-            if(xPosition < 170 == xPosition > 230){
-                if(yPosition < 850 == yPosition > 950)
-                    updateScore+= 10;
+            if(xPosition < 180 == xPosition > 220) {
+                if (yPosition < 880 == yPosition > 920) {
+                    updateVisit2 += 1;
+                }
             }
 
-            if(xPosition < 270 == xPosition > 330){
-                if(yPosition < 70 == yPosition > 130)
-                    updateScore+= 10;
+            if(xPosition < 280 == xPosition > 320){
+                if(yPosition < 80 == yPosition > 120) {
+                    updateVisit3 += 1;
+                }
             }
 
-            if(xPosition < 170 == xPosition > 230){
-                if(yPosition < 370 == yPosition > 430)
-                    updateScore+= 10;
+            if(xPosition < 180 == xPosition > 220){
+                if(yPosition < 380 == yPosition > 420) {
+                    updateVisit4 += 1;
+                }
             }
 
-            canvas.drawText("Score :",0,30,p);
-            canvas.drawText(String.valueOf(updateScore),120,30,p);
+            canvas.drawText("Time :",0,30,p);
+            canvas.drawText(String.valueOf(updateTime),120,30,p);
 
-            if(updateScore > 600){
-                canvas.drawText("You have conquered the planets",0,700,p);
-                canvas.drawText("GAME OVER",0,740,p);
+            if(updateVisit1 > 1){
+                if(updateVisit2 > 1){
+                    if(updateVisit3 > 1){
+                        if(updateVisit4 > 1){
+                            if(updateTime > 0){
+                                canvas.drawText("You have conquered the planets",0,700,p);
+                                updateFinished += 1;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            if(updateTime < 0){
+                if(updateFinished == 1){
+                    canvas.drawText("GAME OVER", 0, 740, p);
+                }
             }
 
             invalidate();
