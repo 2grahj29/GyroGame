@@ -9,20 +9,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ShapeDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-
-import static com.example.a2grahj29.gyrogame.R.drawable.ball;
-import static com.example.a2grahj29.gyrogame.R.drawable.enemy;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -102,27 +96,8 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
     }
 
-    /*
-    private void scoreUpdate(){
-        if(yPosition == 200){
-            if(xPosition == 900){
-                updateScore ++;
-            }
-        }
-        if(yPosition == 300){
-            if(xPosition == 100){
-                updateScore++;
-            }
-        }
-        if(yPosition == 500){
-            if(xPosition == 500){
-                updateScore++;
-            }
-        }
-    }
-    */
 
-    // I've chosen to not implement this method
+    // Method not used.
     public void onAccuracyChanged(Sensor arg0, int arg1)
     {
     }
@@ -148,12 +123,12 @@ public class MainActivity extends Activity implements SensorEventListener {
         public CustomDrawableView(Context context)
         {
             super(context);
-            Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+            Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.playerufo);
             final int dstWidth = 50;
             final int dstHeight = 50;
             bBitmap = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
 
-            Bitmap enemy = BitmapFactory.decodeResource(getResources(), R.drawable.enemy);
+            Bitmap enemy = BitmapFactory.decodeResource(getResources(), R.drawable.planet);
             final int dsWidth = 50;
             final int dsHeight = 50;
             eBitmap = Bitmap.createScaledBitmap(enemy, dsWidth, dsHeight, true);
@@ -181,11 +156,11 @@ public class MainActivity extends Activity implements SensorEventListener {
             final Bitmap bitmap4 = eBitmap;
             canvas.drawBitmap(eBitmap, 200, 400, null);
 
-            counter++;
-            canvas.drawText(String.valueOf(counter),0,1150,p);
+            //counter++;
+            //canvas.drawText(String.valueOf(counter),0,1150,p);
 
-            canvas.drawText(String.valueOf(xPosition),600,30,p);
-            canvas.drawText(String.valueOf(yPosition),600,60,p);
+            //canvas.drawText(String.valueOf(xPosition),600,30,p);
+            //canvas.drawText(String.valueOf(yPosition),600,60,p);
 
             if(xPosition < 470 == xPosition > 530){
                 if(yPosition < 470 == yPosition > 530)
@@ -209,6 +184,11 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             canvas.drawText("Score :",0,30,p);
             canvas.drawText(String.valueOf(updateScore),120,30,p);
+
+            if(updateScore > 600){
+                canvas.drawText("You have conquered the planets",0,700,p);
+                canvas.drawText("GAME OVER",0,740,p);
+            }
 
             invalidate();
         }
