@@ -13,6 +13,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -55,6 +56,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         mCustomDrawableView = new CustomDrawableView(this);
         setContentView(mCustomDrawableView);
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.bgmusic);
+        mediaPlayer.start(); // no need to call prepare(); create() does that for you
 
         //Calculate Boundry
         Display display = getWindowManager().getDefaultDisplay();
