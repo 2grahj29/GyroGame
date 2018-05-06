@@ -167,7 +167,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             //canvas.drawText(String.valueOf(counter),0,1150,p);
 
             //canvas.drawText(String.valueOf(xPosition),600,30,p);
-            //canvas.drawText(String.valueOf(yPosition),600,60,p);
+            //bcanvas.drawText(String.valueOf(yPosition),600,60,p);
 
 
             if(xPosition < 480 == xPosition > 520){
@@ -212,9 +212,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             }
 
             if(updateTime < 0){
-                if(updateFinished == 1){
                     canvas.drawText("GAME OVER", 0, 740, p);
-                }
             }
 
             invalidate();
