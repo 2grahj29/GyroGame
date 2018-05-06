@@ -70,12 +70,12 @@ public class MainActivity extends Activity implements SensorEventListener {
                 //Set sensor values as acceleration
                 yAcceleration = sensorEvent.values[1];
                 xAcceleration = sensorEvent.values[2];
-                updateBall();
+                playerMovement();
             }
         }
     }
 
-    private void updateBall() {
+    private void playerMovement() {
         //Calculate new speed
         xVelocity += (xAcceleration * frameTime);
         yVelocity += (yAcceleration * frameTime);
@@ -128,10 +128,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         public CustomDrawableView(Context context)
         {
             super(context);
-            Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.playerufo);
+            Bitmap playerCharacter = BitmapFactory.decodeResource(getResources(), R.drawable.playerufo);
             final int dstWidth = 50;
             final int dstHeight = 50;
-            bBitmap = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
+            bBitmap = Bitmap.createScaledBitmap(playerCharacter, dstWidth, dstHeight, true);
 
             Bitmap enemy = BitmapFactory.decodeResource(getResources(), R.drawable.planet);
             final int dsWidth = 50;
